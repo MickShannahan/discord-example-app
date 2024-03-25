@@ -45,7 +45,9 @@ export async function InstallGlobalCommands(appId, commands) {
 
   try {
     // This is calling the bulk overwrite endpoint: https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
-    await DiscordRequest(endpoint, { method: 'PUT', body: commands });
+    const res = await DiscordRequest(endpoint, { method: 'PUT', body: commands });
+    const data = await res.json()
+    console.log(data)
   } catch (err) {
     console.error(err);
   }
@@ -53,10 +55,21 @@ export async function InstallGlobalCommands(appId, commands) {
 
 // Simple method that returns a random emoji from list
 export function getRandomEmoji() {
-  const emojiList = ['😭','😄','😌','🤓','😎','😤','🤖','😶‍🌫️','🌏','📸','💿','👋','🌊','✨'];
+  const emojiList = ['😭', '😄', '😌', '🤓', '😎', '😤', '🤖', '😶‍🌫️', '🌏', '📸', '💿', '👋', '🌊', '✨'];
   return emojiList[Math.floor(Math.random() * emojiList.length)];
 }
 
 export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function codeBlockify(response, type = 'json') {
+  let comma = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/g
+  let openBrackets = /\{/g
+  let block = [
+    '```' + type,
+    JSON.stringify(response, null, 2),
+    '```'
+  ]
+  return block.join('\n')
 }

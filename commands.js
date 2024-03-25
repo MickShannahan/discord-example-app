@@ -24,6 +24,14 @@ const TEST_COMMAND = {
   type: 1,
 };
 
+
+// create dm command
+const CREATE_DM = {
+  name: 'help_me',
+  description: 'Creates a DM with the help channel',
+  type: 1
+}
+
 // Command containing options
 const CHALLENGE_COMMAND = {
   name: 'challenge',
@@ -40,6 +48,6 @@ const CHALLENGE_COMMAND = {
   type: 1,
 };
 
-const ALL_COMMANDS = [TEST_COMMAND, CHALLENGE_COMMAND];
+const ALL_COMMANDS = [TEST_COMMAND, CHALLENGE_COMMAND, CREATE_DM];
 
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);
